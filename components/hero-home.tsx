@@ -14,8 +14,7 @@ export default function HeroHome() {
       <PageIllustration />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Hero content */}
-       <div className="pb-4 pt-20 md:pb-8 md:pt-40">
-
+        <div className="pb-4 pt-20 md:pb-8 md:pt-40">
           {/* Section header */}
           <div className="pb-4 text-center md:pb-8">
             <h1
@@ -24,7 +23,7 @@ export default function HeroHome() {
               data-aos-delay={150}
             >
               Connect Globally with <br className="max-lg:hidden" />
-              Investors 
+              Investors
             </h1>
             <div className="mx-auto max-w-3xl">
               <p
@@ -32,7 +31,9 @@ export default function HeroHome() {
                 data-aos="zoom-y-out"
                 data-aos-delay={300}
               >
-              Investronaut is a modern founder platform that uses intelligent matching to help startups connect with the right investors globally.
+                Investronaut is a modern founder platform that uses intelligent
+                matching to help startups connect with the right investors
+                globally.
               </p>
             </div>
           </div>

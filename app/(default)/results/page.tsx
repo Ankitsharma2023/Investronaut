@@ -41,13 +41,16 @@ export default function ResultsPage() {
 
     const fetchResults = async () => {
       try {
-        const res = await fetch("http://localhost:8000/find_investors", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const res = await fetch(
+          "https://backend-investronaut-849873361822.asia-south1.run.app/find_investors",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ startup_idea: startupIdea }),
           },
-          body: JSON.stringify({ startup_idea: startupIdea }),
-        });
+        );
 
         if (!res.ok) throw new Error("API request failed");
         const data: InvestorMatch[] = await res.json();
