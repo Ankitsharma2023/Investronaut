@@ -1,13 +1,13 @@
 "use client";
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { auth } from "@/app/firebase/firebase";
 
 export default function TerminalPrompt() {
   const [value, setValue] = useState("");
   const [focused, setFocused] = useState(false);
   const router = useRouter();
   const inputRef = useRef(null);
-
   const handleSubmit = () => {
     if (value.trim() === "") return;
     sessionStorage.setItem("startupIdea", value);
@@ -22,6 +22,9 @@ export default function TerminalPrompt() {
   };
 
   const handleTerminalClick = () => {
+    if (!auth.currentUser) {
+      redirect("/signin");
+    }
     setFocused(true);
     // Use setTimeout to ensure the input is rendered before focusing
     setTimeout(() => {
@@ -35,8 +38,12 @@ export default function TerminalPrompt() {
     <div className="w-full" data-aos="zoom-y-out" data-aos-delay={600}>
       <style jsx>{`
         @keyframes rotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
         }
         .single-light {
           position: absolute;
@@ -57,19 +64,21 @@ export default function TerminalPrompt() {
           pointer-events: none;
         }
       `}</style>
-      
-      <div 
+
+      <div
         className="relative h-48 md:h-96 w-full rounded-2xl bg-gray-900 px-5 py-3 shadow-[0_0_30px_5px_rgba(168,85,247,0.3)] overflow-hidden cursor-text"
         onClick={handleTerminalClick}
       >
         {/* Single bold light moving slowly */}
         <div className="single-light"></div>
-        
+
         {/* Main content container with inset border */}
         <div className="absolute inset-[2px] rounded-xl bg-gray-900"></div>
-        
+
         <div className="relative mb-1 flex items-center justify-between before:block before:h-[9px] before:w-[41px] before:bg-[length:16px_9px] before:[background-image:radial-gradient(circle_at_4.5px_4.5px,var(--color-gray-600)_4.5px,transparent_0)]">
-          <span className="text-[13px] font-medium text-white">Click on Terminal to Start</span>
+          <span className="text-[13px] font-medium text-white">
+            Click on Terminal to Start
+          </span>
         </div>
 
         {!focused && (
@@ -82,15 +91,13 @@ export default function TerminalPrompt() {
             </span>
             <br />
             <span className="animate-[code-3_10s_infinite]">
-             And its Industry,
+              And its Industry,
             </span>{" "}
-            <span className="animate-[code-4_10s_infinite]">
-              Current Stage
-            </span>
+            <span className="animate-[code-4_10s_infinite]">Current Stage</span>
             <br />
             <br />
             <span className="animate-[code-5_10s_infinite] text-gray-200">
-              Funding Required 
+              Funding Required
             </span>
             <br />
             <span className="animate-[code-6_10s_infinite]">
@@ -98,7 +105,7 @@ export default function TerminalPrompt() {
             </span>
           </div>
         )}
-        
+
         {focused && (
           <div className="font-mono text-sm text-gray-200 flex items-start w-full relative z-10">
             <span className="text-purple-400 mr-2">$</span>
@@ -113,8 +120,8 @@ export default function TerminalPrompt() {
               data-placeholder="Describe your startup idea, business model, industry, funding needs, and traction..."
               style={{
                 ...(value === "" && {
-                  position: "relative"
-                })
+                  position: "relative",
+                }),
               }}
             />
           </div>
