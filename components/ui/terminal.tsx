@@ -7,14 +7,14 @@ export default function TerminalPrompt() {
   const [value, setValue] = useState("");
   const [focused, setFocused] = useState(false);
   const router = useRouter();
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleSubmit = () => {
     if (value.trim() === "") return;
     sessionStorage.setItem("startupIdea", value);
     router.push("/results");
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleSubmit();
