@@ -1,6 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ExternalLink, Building2, MapPin, DollarSign, TrendingUp, Globe } from "lucide-react";
+import {
+  ExternalLink,
+  Building2,
+  MapPin,
+  DollarSign,
+  TrendingUp,
+  Globe,
+} from "lucide-react";
+import { auth } from "@/app/firebase/firebase";
+import { redirect } from "next/navigation";
 
 interface InvestorMatch {
   rank: number;
@@ -20,6 +29,9 @@ export default function ResultsPage() {
   const [idea, setIdea] = useState<string>("");
 
   useEffect(() => {
+    if (!auth.currentUser) {
+      redirect("/signin?next=results");
+    }
     const startupIdea = sessionStorage.getItem("startupIdea");
     if (!startupIdea) {
       setLoading(false);
@@ -80,9 +92,13 @@ export default function ResultsPage() {
           <div className="text-center mb-8">
             <div className="inline-flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-xl font-semibold text-white">Finding Perfect Investors...</span>
+              <span className="text-xl font-semibold text-white">
+                Finding Perfect Investors...
+              </span>
             </div>
-            <p className="text-slate-400">Analyzing your startup idea and matching with the best investors</p>
+            <p className="text-slate-400">
+              Analyzing your startup idea and matching with the best investors
+            </p>
           </div>
           <div className="grid gap-6">
             {[1, 2, 3].map((i) => (
@@ -93,8 +109,6 @@ export default function ResultsPage() {
       </div>
     );
   }
-
-
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
@@ -108,7 +122,8 @@ export default function ResultsPage() {
             <p className="text-blue-300 font-medium">"{idea}"</p>
           </div>
           <p className="text-slate-400 mt-3">
-            Found {results.length} potential investor{results.length !== 1 ? 's' : ''} for your startup
+            Found {results.length} potential investor
+            {results.length !== 1 ? "s" : ""} for your startup
           </p>
         </div>
 
@@ -118,8 +133,12 @@ export default function ResultsPage() {
             <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-yellow-400 text-2xl">?</span>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No Investors Found</h3>
-            <p className="text-slate-400">Try refining your startup idea or check back later.</p>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              No Investors Found
+            </h3>
+            <p className="text-slate-400">
+              Try refining your startup idea or check back later.
+            </p>
           </div>
         ) : (
           <div className="grid gap-6">
@@ -129,7 +148,7 @@ export default function ResultsPage() {
                 className="group bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1"
                 style={{
                   animationDelay: `${index * 150}ms`,
-                  animation: 'slideInUp 0.6s ease-out forwards'
+                  animation: "slideInUp 0.6s ease-out forwards",
                 }}
               >
                 {/* Header */}
@@ -142,7 +161,9 @@ export default function ResultsPage() {
                       <h2 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
                         {investor.investor_name}
                       </h2>
-                      <p className="text-slate-400 text-sm">{investor.investor_type}</p>
+                      <p className="text-slate-400 text-sm">
+                        {investor.investor_type}
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -159,16 +180,24 @@ export default function ResultsPage() {
                     <div className="flex items-start space-x-3">
                       <TrendingUp className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-medium text-slate-300 mb-1">Investment Focus</p>
-                        <p className="text-slate-400 text-sm leading-relaxed">{investor.investment_thesis}</p>
+                        <p className="text-sm font-medium text-slate-300 mb-1">
+                          Investment Focus
+                        </p>
+                        <p className="text-slate-400 text-sm leading-relaxed">
+                          {investor.investment_thesis}
+                        </p>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-3">
                       <Globe className="w-5 h-5 text-blue-400 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-medium text-slate-300 mb-1">Investment Stage</p>
-                        <p className="text-slate-400 text-sm">{investor.stage_of_investment}</p>
+                        <p className="text-sm font-medium text-slate-300 mb-1">
+                          Investment Stage
+                        </p>
+                        <p className="text-slate-400 text-sm">
+                          {investor.stage_of_investment}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -178,17 +207,24 @@ export default function ResultsPage() {
                     <div className="flex items-center space-x-3">
                       <MapPin className="w-5 h-5 text-red-400 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-medium text-slate-300 mb-1">Geographic Focus</p>
-                        <p className="text-slate-400 text-sm">{investor.countries_of_investment}</p>
+                        <p className="text-sm font-medium text-slate-300 mb-1">
+                          Geographic Focus
+                        </p>
+                        <p className="text-slate-400 text-sm">
+                          {investor.countries_of_investment}
+                        </p>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-3">
                       <DollarSign className="w-5 h-5 text-yellow-400 flex-shrink-0" />
                       <div>
-                        <p className="text-sm font-medium text-slate-300 mb-1">Check Size</p>
+                        <p className="text-sm font-medium text-slate-300 mb-1">
+                          Check Size
+                        </p>
                         <p className="text-slate-400 text-sm">
-                          {formatCurrency(investor.first_cheque_minimum)} - {formatCurrency(investor.first_cheque_maximum)}
+                          {formatCurrency(investor.first_cheque_minimum)} -{" "}
+                          {formatCurrency(investor.first_cheque_maximum)}
                         </p>
                       </div>
                     </div>

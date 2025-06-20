@@ -2,8 +2,13 @@ import Link from "next/link";
 import Logo from "./logo";
 import Dropdown from "@/components/dropdown";
 import MobileMenu from "./mobile-menu";
+import { auth } from "@/app/firebase/firebase";
+import { doSignOut } from "@/app/firebase/auth";
+import { redirect } from "next/navigation";
+import { reload } from "firebase/auth";
 
 export default function Header() {
+  console.log(auth.currentUser);
   return (
     <header className="absolute top-2 z-30 w-full md:top-6">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -51,8 +56,8 @@ export default function Header() {
               </li>
               {/* 1st level: hover */}
               {/* <Dropdown title="Extra"> */}
-                {/* 2nd level: hover */}
-                {/* <li>
+              {/* 2nd level: hover */}
+              {/* <li>
                   <Link
                     href="/support"
                     className="flex rounded-lg px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
@@ -60,7 +65,7 @@ export default function Header() {
                     Support center
                   </Link>
                 </li> */}
-                {/* <li>
+              {/* <li>
                   <Link
                     href="/apps"
                     className="flex rounded-lg px-2 py-1.5 text-sm text-gray-700 hover:bg-gray-100"
@@ -74,22 +79,38 @@ export default function Header() {
 
           {/* Desktop sign in links */}
           <ul className="flex flex-1 items-center justify-end gap-3">
-            <li>
-              <Link
-                href="/signin"
-                className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+            {auth.currentUser === null ? (
+              <>
+                <li>
+                  <Link
+                    href="/signin"
+                    className="btn-sm bg-white text-gray-800 shadow-sm hover:bg-gray-50"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/signup"
+                    className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900"
+                  >
+                    Register
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li
+                onClick={() => {
+                  doSignOut().then(() => {
+                    redirect("/signin");
+                  });
+                }}
               >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/signup"
-                className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900"
-              >
-                Register
-              </Link>
-            </li>
+                <button className="btn-sm bg-gray-800 text-gray-200 shadow-sm hover:bg-gray-900">
+                  SignOut
+                </button>
+              </li>
+            )}
           </ul>
 
           <MobileMenu />

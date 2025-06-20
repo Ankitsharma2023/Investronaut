@@ -1,12 +1,20 @@
+"use client";
 import Image from "next/image";
 import Logo from "@/components/ui/logo";
 import AuthBg from "@/public/images/auth-bg.svg";
+import { auth } from "../firebase/firebase";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  if (auth.currentUser) {
+    router.replace(searchParams.get("next") ?? "/");
+  }
   return (
     <>
       <header className="absolute z-30 w-full">

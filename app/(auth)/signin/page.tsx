@@ -1,24 +1,28 @@
-'use client';
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   doSignInWithEmailAndPassword,
   doSignInWithGoogle,
-} from "../../firebase/auth"; 
-
-
+} from "../../firebase/auth";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
+import next from "next";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const searchParams = useSearchParams();
+  const next_url = searchParams.get("next");
+  const nav = useRouter();
   // 🔐 Manual email/password login
   const handleManualSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     try {
       await doSignInWithEmailAndPassword(email, password);
+      nav.push(next_url ?? "/");
+
       // Optional: redirect user
       // router.push('/dashboard');
     } catch (err: any) {
@@ -32,6 +36,8 @@ export default function SignIn() {
     setError("");
     try {
       await doSignInWithGoogle();
+      nav.push(next_url ?? "/");
+
       // Optional: redirect user
     } catch (err: any) {
       console.error(err.message);
@@ -49,7 +55,10 @@ export default function SignIn() {
       <form onSubmit={handleManualSignIn}>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+            <label
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -63,7 +72,10 @@ export default function SignIn() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700" htmlFor="password">
+            <label
+              className="block text-sm font-medium text-gray-700"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -81,7 +93,10 @@ export default function SignIn() {
         {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
         <div className="mt-6">
-          <button type="submit" className="btn w-full bg-blue-600 text-white hover:bg-blue-700">
+          <button
+            type="submit"
+            className="btn w-full bg-blue-600 text-white hover:bg-blue-700"
+          >
             Sign In with Email
           </button>
         </div>
@@ -102,7 +117,10 @@ export default function SignIn() {
 
       {/* Forgot Password */}
       <div className="mt-6 text-center">
-        <Link className="text-sm text-gray-700 underline hover:no-underline" href="/reset-password">
+        <Link
+          className="text-sm text-gray-700 underline hover:no-underline"
+          href="/reset-password"
+        >
           Forgot password?
         </Link>
       </div>

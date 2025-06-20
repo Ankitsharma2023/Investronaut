@@ -22,9 +22,6 @@ export default function TerminalPrompt() {
   };
 
   const handleTerminalClick = () => {
-    if (!auth.currentUser) {
-      redirect("/signin");
-    }
     setFocused(true);
     // Use setTimeout to ensure the input is rendered before focusing
     setTimeout(() => {
