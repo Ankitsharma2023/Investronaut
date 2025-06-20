@@ -124,6 +124,17 @@ export default function TerminalPrompt() {
           </div>
         )}
       </div>
+      <div className="relative md:hidden w-full mt-1 mb-1 flex items-center justify-center">
+        <button
+          className="py-2 px-4 text-black"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }
