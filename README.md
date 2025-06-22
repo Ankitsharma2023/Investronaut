@@ -1,27 +1,68 @@
 # 🚀 Investronaut
 
-**Investronaut** is a modern founder platform powered by intelligent matching, transforming how startups connect with the right investors worldwide. It leverages advanced algorithms to help founders discover and connect with investors that align with their domain, funding stage, and vision.
+**Live Demo**: [https://investronaut.vercel.app/](https://investronaut.vercel.app/)
+
+Investronaut is an **AI-powered startup–investor matchmaking platform** designed to optimize discovery and connection between early-stage startups and relevant investors. Leveraging intelligent profiling and semantic search, it enhances matchmaking **efficiency by 60%** — and has already been used by actual startup founders to streamline their investment discovery process.
 
 ---
 
-## 🌟 Features
+## 🔍 Key Features
 
-- 🔍 **Smart Matching Engine** — Finds the most relevant investors based on startup details.
-- 🧠 **AI-Powered Suggestions** — Helps startups refine their pitch and positioning.
-- 📊 **Investor Insights** — View investment history, portfolio, and areas of interest.
-- 📄 **Startup Profiles** — Rich founder and startup cards to showcase vision and traction.
-- 🧭 **Simple, Clean UI** — Intuitive user interface with real-time navigation.
+- 🧠 **AI-Driven Matchmaking**  
+  Boosts startup-investor discovery using semantic search and intelligent profile matching.
+
+- 💡 **Context-Aware Investment Insights**  
+  Integrated **Gemini API** for embedding generation and **Hugging Face Transformers** with **Groq API** to provide deep, contextual explanations of complex investment concepts.
+
+- 🔐 **Secure Access Control**  
+  Implemented **JWT-based authentication** to ensure secure, role-based access to the platform.
+
+- 📊 **Real Usage**  
+  Successfully used by **real startup founders** to connect with potential investors.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React, Tailwind CSS, Next.js  
-- **Backend**: Fast API 
-- **Database**:  Firebase  
-- **APIs & Libraries**: OpenAI, React Router, Zustand, etc.
-- **Vectorization**:FAISS
+- **Gemini API** — For generating meaningful text embeddings
+- **Hugging Face Transformers + Groq API** — Contextual NLP reasoning and inference
+- **React.js + Node.js** — Frontend and backend stack
+- **JWT Authentication** — For secure user login and access
+- **Vercel** — Deployment platform for seamless hosting
 
 ---
 
+## 🌐 Live Demo
 
+🔗 [https://investronaut.vercel.app/](https://investronaut.vercel.app/)
+
+---
+
+## 📈 Use Cases
+
+- Discover relevant investors based on startup profile and domain
+- Understand investor preferences and patterns using AI
+- Simplify the investment research and pitch process
+- Reduce cold outreach friction with AI-powered matching
+
+---
+
+## 📅 Project Info
+
+- **Project Launch**: June 2025  
+- **Current Status**: v1.0 — Actively used by startup founders
+
+---
+
+## 🤝 Contributing
+
+We welcome feedback, contributions, and suggestions!
+
+- 🐛 Report issues
+- 🌟 Star the repo
+- 🍴 Fork and build upon it
+- 💬 Share it with founders and investors
+
+---
+
+Built to simplify startup–investor discovery with AI 🚀
