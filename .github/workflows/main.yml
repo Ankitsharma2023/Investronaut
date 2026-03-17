@@ -19,9 +19,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Export static files
-        run: npx next export
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
